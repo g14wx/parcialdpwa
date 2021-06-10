@@ -1,4 +1,5 @@
-﻿@model parcialdpwa.Models.Artista
+﻿@using parcialdpwa.Models
+@model parcialdpwa.Models.Artista
 
 @{
     ViewBag.Title = "Details";
@@ -44,6 +45,7 @@
 
     </dl>
 </div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")

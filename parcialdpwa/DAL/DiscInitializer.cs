@@ -15,6 +15,11 @@ namespace parcialdpwa.DAL
                 new Empleado
                 {
                     Nombres = Name.First(), Apellidos = Name.Last(), Direccion = Address.UsState(),
+                    login = "admin", clave = "admin"
+                },
+                new Empleado
+                {
+                    Nombres = Name.First(), Apellidos = Name.Last(), Direccion = Address.UsState(),
                     login = Internet.UserName(), clave = "admin"
                 }
             };

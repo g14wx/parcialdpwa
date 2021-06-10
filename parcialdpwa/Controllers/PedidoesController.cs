@@ -47,8 +47,11 @@ namespace parcialdpwa.Controllers
         // GET: Pedidoes/Create
         public ActionResult Create()
         {
+            var reqCookies = Request.Cookies["userInfo"];
+            var EmpleadoID = reqCookies["EmnpleadoID"];
+            var empleadoLoginID = int.Parse(EmpleadoID);
             ViewBag.ClienteID = new SelectList(db.Clientes, "ID", "Nombres");
-            ViewBag.EmpleadoID = new SelectList(db.Empleados, "ID", "Nombres");
+            ViewBag.EmpleadoID = new SelectList(db.Empleados.Where(e=>e.ID == empleadoLoginID), "ID", "Nombres");
             return View();
         }
 

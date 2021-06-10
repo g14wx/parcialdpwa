@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Discovery;
 using parcialdpwa.DAL;
 using parcialdpwa.Models;
 
@@ -35,12 +36,25 @@ namespace parcialdpwa.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            }                              
             Cliente cliente = db.Clientes.Find(id);
+
             if (cliente == null)
             {
                 return HttpNotFound();
             }
+
+            // buscando artistas favoritos
+            var artistas = (from artista in db.Artistas
+                join disco in db.Discos on artista.ID equals disco.ArtistaID
+                join dp in db.DetallePedidos on disco.ID equals dp.DiscoID
+                join p in db.Pedidos on dp.PedidoID equals p.ID
+                join cl in db.Clientes on p.ClienteID equals cl.ID
+                where cl.ID == id
+                select artista).Distinct();
+
+            ViewBag.Artistas = artistas.ToList();
+
             return View(cliente);
         }
 

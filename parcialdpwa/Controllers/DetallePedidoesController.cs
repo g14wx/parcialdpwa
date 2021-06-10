@@ -21,8 +21,8 @@ namespace parcialdpwa.Controllers
         {
             ViewBag.idPedido = idPedido;
             var detallePedidos = db.DetallePedidos.Include(d => d.Disco).Include(d => d.Pedido);
-            var detallespedidosFromIdPedido = detallePedidos.Where(dp => dp.Pedido.ID == idPedido);
-            return View(detallePedidos.ToList());
+            var detallespedidosFromIdPedido = detallePedidos.Where(dp => dp.PedidoID == idPedido);
+            return View(detallespedidosFromIdPedido.ToList());
         }
 
         // GET: DetallePedidoes/Details/5
@@ -61,7 +61,7 @@ namespace parcialdpwa.Controllers
             {
                 db.DetallePedidos.Add(detallePedido);
                 db.SaveChanges();
-                return RedirectToAction(actionName:"Index",controllerName:"DetallePedidoes",routeValues:new {idPedido = detallePedido.ID});
+                return RedirectToAction(actionName:"Index",controllerName:"DetallePedidoes",routeValues:new {idPedido = detallePedido.PedidoID});
             }
 
             ViewBag.DiscoID = new SelectList(db.Discos, "ID", "Titulo", detallePedido.DiscoID);
@@ -97,7 +97,7 @@ namespace parcialdpwa.Controllers
             {
                 db.Entry(detallePedido).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction(actionName: "Index", controllerName: "DetallePedidoes", routeValues: new { idPedido = detallePedido.ID });
+                return RedirectToAction(actionName: "Index", controllerName: "DetallePedidoes", routeValues: new { idPedido = detallePedido.PedidoID });
             }
             ViewBag.DiscoID = new SelectList(db.Discos, "ID", "Titulo", detallePedido.DiscoID);
             ViewBag.PedidoID = new SelectList(db.Pedidos, "ID", "DireccionEntrega", detallePedido.PedidoID);
@@ -127,7 +127,7 @@ namespace parcialdpwa.Controllers
             DetallePedido detallePedido = db.DetallePedidos.Find(id);
             db.DetallePedidos.Remove(detallePedido);
             db.SaveChanges();
-            return RedirectToAction(actionName: "Index", controllerName: "DetallePedidoes", routeValues: new { idPedido = detallePedido.ID });
+            return RedirectToAction(actionName: "Index", controllerName: "DetallePedidoes", routeValues: new { idPedido = detallePedido.PedidoID });
         }
 
         protected override void Dispose(bool disposing)
