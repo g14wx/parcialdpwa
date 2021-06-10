@@ -15,14 +15,16 @@ namespace parcialdpwa.Models
         [MinLength(1, ErrorMessage = "Error este campo necesita al menos un caracter")]
         public string Nombre { get; set; }
         [DisplayName("Apellido del artista")]
-        [Required(AllowEmptyStrings = true)]
+        [Required(AllowEmptyStrings = true,ErrorMessage = "Este campo es necesario")]
         public string Apellido { get; set; }
 
         [DisplayName("Fecha de nacimiento")]
-        [Required(AllowEmptyStrings = true)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Error, Este campo es requerido",AllowEmptyStrings = true)]
         public DateTime FechaDeNacimiento { get; set; }
         [DisplayName("Lugar de nacimiento")]
-        [Required(AllowEmptyStrings = true)]
+        [Required(ErrorMessage = "Error, Este campo es requerido" ,AllowEmptyStrings = true)]
         public string LugarDeNacimiento { get; set; }
         public virtual ICollection<Disco> Discos { get; set; }
     }

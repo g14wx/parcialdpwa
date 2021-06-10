@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using Faker;
 using parcialdpwa.Models;
@@ -132,6 +133,7 @@ namespace parcialdpwa.DAL
             discos.ForEach(d => context.Discos.Add(d));
             context.SaveChanges();
 
+            Random rmdn = new Random();
             var canciones = new List<Cancion>
             {
                 new Cancion
@@ -139,77 +141,77 @@ namespace parcialdpwa.DAL
                     Numero = 1,
                     DiscoID = 1,
                     cancion = Name.First(),
-                    Tiempo = Identification.DateOfBirth().TimeOfDay
+                    Tiempo = TimeSpan.FromMinutes(rmdn.Next(1,10)).Add(TimeSpan.FromSeconds(rmdn.Next(1,59)))
                 },
                 new Cancion
                 {
                     Numero = 2,
                     DiscoID = 1,
                     cancion = Name.First(),
-                    Tiempo = Identification.DateOfBirth().TimeOfDay
+                    Tiempo = TimeSpan.FromMinutes(rmdn.Next(1,10)).Add(TimeSpan.FromSeconds(rmdn.Next(1,59)))
                 },
                 new Cancion
                 {
                     Numero = 3,
                     DiscoID = 1,
                     cancion = Name.First(),
-                    Tiempo = Identification.DateOfBirth().TimeOfDay
+                    Tiempo = TimeSpan.FromMinutes(rmdn.Next(1,10)).Add(TimeSpan.FromSeconds(rmdn.Next(1,59)))
                 },
                 new Cancion
                 {
                     Numero = 1,
                     DiscoID = 2,
                     cancion = Name.First(),
-                    Tiempo = Identification.DateOfBirth().TimeOfDay
+                    Tiempo = TimeSpan.FromMinutes(rmdn.Next(1,10)).Add(TimeSpan.FromSeconds(rmdn.Next(1,59)))
                 },
                 new Cancion
                 {
                     Numero = 2,
                     DiscoID = 2,
                     cancion = Name.First(),
-                    Tiempo = Identification.DateOfBirth().TimeOfDay
+                    Tiempo = TimeSpan.FromMinutes(rmdn.Next(1,10)).Add(TimeSpan.FromSeconds(rmdn.Next(1,59)))
                 },
                 new Cancion
                 {
                     Numero = 3,
                     DiscoID = 2,
                     cancion = Name.First(),
-                    Tiempo = Identification.DateOfBirth().TimeOfDay
+                    Tiempo = TimeSpan.FromMinutes(rmdn.Next(1,10)).Add(TimeSpan.FromSeconds(rmdn.Next(1,59)))
                 },
                 new Cancion
                 {
                     Numero = 1,
                     DiscoID = 3,
                     cancion = Name.First(),
-                    Tiempo = Identification.DateOfBirth().TimeOfDay
+                    Tiempo = TimeSpan.FromMinutes(rmdn.Next(1,10)).Add(TimeSpan.FromSeconds(rmdn.Next(1,59)))
                 },
                 new Cancion
                 {
                     Numero = 2,
                     DiscoID = 3,
                     cancion = Name.First(),
-                    Tiempo = Identification.DateOfBirth().TimeOfDay
+                    Tiempo = TimeSpan.FromMinutes(rmdn.Next(1,10)).Add(TimeSpan.FromSeconds(rmdn.Next(1,59)))
                 },
                 new Cancion
                 {
                     Numero = 3,
                     DiscoID = 3,
                     cancion = Name.First(),
-                    Tiempo = Identification.DateOfBirth().TimeOfDay
+                    Tiempo = TimeSpan.FromMinutes(rmdn.Next(1,10)).Add(TimeSpan.FromSeconds(rmdn.Next(1,59)))
                 },
                 new Cancion
                 {
                     Numero = 1,
                     DiscoID = 4,
                     cancion = Name.First(),
-                    Tiempo = Identification.DateOfBirth().TimeOfDay
+                    Tiempo = TimeSpan.FromMinutes(rmdn.Next(1,10)).Add(TimeSpan.FromSeconds(rmdn.Next(1,59)))
                 },
                 new Cancion
                 {
                     Numero = 2,
                     DiscoID = 4,
                     cancion = Name.First(),
-                    Tiempo = Identification.DateOfBirth().TimeOfDay
+                    Tiempo = TimeSpan.FromMinutes(rmdn.Next(1,10)).Add(TimeSpan.FromSeconds(rmdn.Next(1,59)))
                 }
             };
             canciones.ForEach(c => context.Canciones.Add(c));
