@@ -14,7 +14,7 @@ namespace parcialdpwa.Models
         [Required(ErrorMessage = "Error, Este campo es requerido", AllowEmptyStrings = false)]
         [MinLength(1, ErrorMessage = "Error este campo necesita al menos un caracter")]
         public string Nombre { get; set; }
-        [DiplayName("Apellido del artista")]
+        [DisplayName("Apellido del artista")]
         [Required(AllowEmptyStrings = true)]
         public string Apellido { get; set; }
 
