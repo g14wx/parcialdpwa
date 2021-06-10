@@ -18,7 +18,15 @@ namespace parcialdpwa.Controllers
         // GET: Clientes
         public ActionResult Index()
         {
-            return View(db.Clientes.ToList());
+            var reqCookies = Request.Cookies["userInfo"];
+            if (reqCookies != null)
+            {
+                var EmpleadoID = reqCookies["EmnpleadoID"];
+                if (EmpleadoID != null) return View(db.Clientes.ToList());
+            }
+
+            return RedirectToAction(actionName: "Index", controllerName: "Home");
+            
         }
 
         // GET: Clientes/Details/5

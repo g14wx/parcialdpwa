@@ -1,0 +1,57 @@
+﻿@model parcialdpwa.Models.Empleado
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Empty.cshtml";
+}
+
+
+<!------ Include the above in your HEAD tag ---------->
+@section styles
+{
+
+    @Styles.Render("~/content/style/login")
+}
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <h2 class="text-center">Login</h2>
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+        </div>
+
+        @using (Html.BeginForm("Login","Home",FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                @Html.LabelFor(model => model.login, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.login, new { htmlAttributes = new { @class = "fadeIn second" } })
+                    @Html.ValidationMessageFor(model => model.login, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.clave, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.clave, new { htmlAttributes = new { @class = "fadeIn third" } })
+                    @Html.ValidationMessageFor(model => model.clave, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <input type="submit" class="fadeIn fourth" value="Log In">
+        }
+        <!-- Login Form -->
+        <!--<form method="post" action="/home/login">
+            <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+            <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+
+        </form>-->
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            default user admin : admin
+        </div>
+
+    </div>
+</div>

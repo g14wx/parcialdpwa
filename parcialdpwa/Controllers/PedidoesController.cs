@@ -18,8 +18,15 @@ namespace parcialdpwa.Controllers
         // GET: Pedidoes
         public ActionResult Index()
         {
-            var pedidos = db.Pedidos.Include(p => p.Cliente).Include(p => p.Empleado);
-            return View(pedidos.ToList());
+            var reqCookies = Request.Cookies["userInfo"];
+            if (reqCookies != null)
+            {
+                var pedidos = db.Pedidos.Include(p => p.Cliente).Include(p => p.Empleado);
+                var EmpleadoID = reqCookies["EmnpleadoID"];
+                if (EmpleadoID != null) return View(pedidos.ToList());
+            }
+
+            return RedirectToAction(actionName: "Index", controllerName: "Home");
         }
 
         // GET: Pedidoes/Details/5
@@ -56,7 +63,7 @@ namespace parcialdpwa.Controllers
             {
                 db.Pedidos.Add(pedido);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction(actionName:"Index",controllerName:"DetallePedidoes",routeValues:new{ idPedido = pedido.ID});
             }
 
             ViewBag.ClienteID = new SelectList(db.Clientes, "ID", "Nombres", pedido.ClienteID);

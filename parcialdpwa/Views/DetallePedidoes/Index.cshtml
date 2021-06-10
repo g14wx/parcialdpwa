@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<parcialdpwa.Models.DetallePedido>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = $"Detalles del pedido con Id: {ViewBag.idPedido}";
 }
 
-<h2>Index</h2>
+<h2>Detalles del pedido con Id: @Html.Raw(ViewBag.idPedido)</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create",routeValues:new {idPedido = ViewBag.idPedido})
 </p>
 <table class="table">
     <tr>

@@ -18,7 +18,15 @@ namespace parcialdpwa.Controllers
         // GET: Empleadoes
         public ActionResult Index()
         {
-            return View(db.Empleados.ToList());
+            var reqCookies = Request.Cookies["userInfo"];
+            if (reqCookies != null)
+            {
+                var EmpleadoID = reqCookies["EmnpleadoID"];
+                if (EmpleadoID != null) return View(db.Empleados.ToList());
+            }
+
+            return RedirectToAction(actionName: "Index", controllerName: "Home");
+            
         }
 
         // GET: Empleadoes/Details/5

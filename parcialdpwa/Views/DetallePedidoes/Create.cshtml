@@ -1,10 +1,10 @@
 ﻿@model parcialdpwa.Models.DetallePedido
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = $"Creación de nuevo pedido para el pedido: {ViewBag.idPedido}";
 }
 
-<h2>Create</h2>
+<h2>Crear nuevo detalle para el pedido con ID @Html.Raw(ViewBag.idPedido)</h2>
 
 
 @using (Html.BeginForm()) 
@@ -32,7 +32,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PedidoID, "PedidoID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PedidoID, "Direccion del pedido", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("PedidoID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PedidoID, "", new { @class = "text-danger" })
@@ -40,11 +40,12 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DiscoID, "DiscoID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DiscoID, "Disco", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("DiscoID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.DiscoID, "", new { @class = "text-danger" })
-            </div>
+                <span id="ShowPrice"></span>
+                </div>
         </div>
 
         <div class="form-group">
@@ -56,9 +57,11 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index",routeValues:new{idPedido = ViewBag.idPedido})
 </div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/content/custom/detallepedido")
 }

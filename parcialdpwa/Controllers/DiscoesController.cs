@@ -18,8 +18,21 @@ namespace parcialdpwa.Controllers
         // GET: Discoes
         public ActionResult Index()
         {
-            var discos = db.Discos.Include(d => d.Artista).Include(d => d.Categoria);
-            return View(discos.ToList());
+            var reqCookies = Request.Cookies["userInfo"];
+            if (reqCookies != null)
+            {
+                var discos = db.Discos.Include(d => d.Artista).Include(d => d.Categoria);
+                var EmpleadoID = reqCookies["EmnpleadoID"];
+                if (EmpleadoID != null) return View(discos.ToList());
+            }
+            return RedirectToAction(actionName: "Index", controllerName: "Home");
+            
+            
+        }
+
+        public decimal getprice(int idDisco)
+        {
+            return db.Discos.Find(idDisco).Precio;
         }
 
         // GET: Discoes/Details/5

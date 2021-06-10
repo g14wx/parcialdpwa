@@ -18,8 +18,15 @@ namespace parcialdpwa.Controllers
         // GET: Cancions
         public ActionResult Index()
         {
-            var canciones = db.Canciones.Include(c => c.Disco);
-            return View(canciones.ToList());
+            var reqCookies = Request.Cookies["userInfo"];
+            if (reqCookies != null)
+            {
+                var canciones = db.Canciones.Include(c => c.Disco);
+                var EmpleadoID = reqCookies["EmnpleadoID"];
+                if (EmpleadoID != null) return View(canciones.ToList());
+            }
+            return RedirectToAction(actionName: "Index", controllerName: "Home");
+           
         }
 
         // GET: Cancions/Details/5

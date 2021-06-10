@@ -18,7 +18,15 @@ namespace parcialdpwa.Controllers
         // GET: Artistas
         public ActionResult Index()
         {
-            return View(db.Artistas.ToList());
+            var reqCookies = Request.Cookies["userInfo"];
+            if (reqCookies != null)
+            {
+                var EmpleadoID = reqCookies["EmnpleadoID"];
+                if (EmpleadoID != null) return View(db.Artistas.ToList());
+            }
+
+            return RedirectToAction(actionName: "Index", controllerName: "Home");
+
         }
 
         // GET: Artistas/Details/5

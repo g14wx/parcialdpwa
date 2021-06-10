@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using parcialdpwa.DAL;
 using parcialdpwa.Models;
+using WebGrease.Css.Extensions;
 
 namespace parcialdpwa.Controllers
 {
@@ -16,9 +17,11 @@ namespace parcialdpwa.Controllers
         private DiscContext db = new DiscContext();
 
         // GET: DetallePedidoes
-        public ActionResult Index()
+        public ActionResult Index(int idPedido)
         {
+            ViewBag.idPedido = idPedido;
             var detallePedidos = db.DetallePedidos.Include(d => d.Disco).Include(d => d.Pedido);
+            var detallespedidosFromIdPedido = detallePedidos.Where(dp => dp.Pedido.ID == idPedido);
             return View(detallePedidos.ToList());
         }
 
@@ -38,10 +41,12 @@ namespace parcialdpwa.Controllers
         }
 
         // GET: DetallePedidoes/Create
-        public ActionResult Create()
+        public ActionResult Create(int? idPedido)
         {
-            ViewBag.DiscoID = new SelectList(db.Discos, "ID", "Titulo");
-            ViewBag.PedidoID = new SelectList(db.Pedidos, "ID", "DireccionEntrega");
+            var discos = db.Discos;
+            ViewBag.idPedido = idPedido;
+            ViewBag.DiscoID = new SelectList(discos, "ID", "Titulo");
+            ViewBag.PedidoID = new SelectList(db.Pedidos.Where(pe=>pe.ID == idPedido), "ID", "DireccionEntrega",selectedValue:idPedido);
             return View();
         }
 
@@ -56,7 +61,7 @@ namespace parcialdpwa.Controllers
             {
                 db.DetallePedidos.Add(detallePedido);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction(actionName:"Index",controllerName:"DetallePedidoes",routeValues:new {idPedido = detallePedido.ID});
             }
 
             ViewBag.DiscoID = new SelectList(db.Discos, "ID", "Titulo", detallePedido.DiscoID);
@@ -92,7 +97,7 @@ namespace parcialdpwa.Controllers
             {
                 db.Entry(detallePedido).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction(actionName: "Index", controllerName: "DetallePedidoes", routeValues: new { idPedido = detallePedido.ID });
             }
             ViewBag.DiscoID = new SelectList(db.Discos, "ID", "Titulo", detallePedido.DiscoID);
             ViewBag.PedidoID = new SelectList(db.Pedidos, "ID", "DireccionEntrega", detallePedido.PedidoID);
@@ -122,7 +127,7 @@ namespace parcialdpwa.Controllers
             DetallePedido detallePedido = db.DetallePedidos.Find(id);
             db.DetallePedidos.Remove(detallePedido);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction(actionName: "Index", controllerName: "DetallePedidoes", routeValues: new { idPedido = detallePedido.ID });
         }
 
         protected override void Dispose(bool disposing)
