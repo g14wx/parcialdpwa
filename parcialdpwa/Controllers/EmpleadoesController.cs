@@ -64,6 +64,42 @@ namespace parcialdpwa.Controllers
             return View(empleado);
         }
 
+        public ActionResult selledDiskBydate(int idEmployee, String startDateS, String endDateS)
+        {
+            if (idEmployee == null || startDateS == null || endDateS == null || startDateS == "" || endDateS == "")
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Empleado empleado = db.Empleados.Find(idEmployee);
+
+
+            DateTime startDate = Convert.ToDateTime(startDateS);
+            DateTime endDate = Convert.ToDateTime(endDateS);
+
+            List<SelledDisk> listSelledDisks = (from d in db.Discos
+                                                join dp in db.DetallePedidos
+                                                on d.ID equals dp.DiscoID
+                                                join p in db.Pedidos
+                                                on dp.PedidoID equals p.ID
+                                                join e in db.Empleados
+                                                on p.EmpleadoID equals e.ID
+                                                where e.ID == idEmployee &&  (p.FechaPedido >= startDate && p.FechaPedido <= endDate)
+                                                select new SelledDisk
+                                                {
+                                                    ID = d.ID,
+                                                    Titulo = d.Titulo
+                                                }).Distinct().ToList();
+
+            empleado.listSelledDisks = listSelledDisks;
+
+            if (empleado == null)
+            {
+                return HttpNotFound();
+            }
+            return View(empleado);
+        }
+
         // GET: Empleadoes/Create
         public ActionResult Create()
         {
