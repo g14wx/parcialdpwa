@@ -15,6 +15,8 @@ namespace parcialdpwa.Controllers
     {
         private DiscContext db = new DiscContext();
 
+       
+
         // GET: Empleadoes
         public ActionResult Index()
         {
@@ -36,7 +38,25 @@ namespace parcialdpwa.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Empleado empleado = db.Empleados.Find(id);
+
+            List<SelledDisk> listSelledDisks = (from d in db.Discos
+                          join dp in db.DetallePedidos
+                          on d.ID equals dp.DiscoID
+                          join p in db.Pedidos
+                          on dp.PedidoID equals p.ID
+                          join e in db.Empleados
+                          on p.EmpleadoID equals e.ID
+                          where e.ID == id
+                          select new SelledDisk  
+                          {
+                              ID = d.ID,
+                              Titulo = d.Titulo
+                          }).Distinct().ToList();
+
+            empleado.listSelledDisks = listSelledDisks;
+
             if (empleado == null)
             {
                 return HttpNotFound();

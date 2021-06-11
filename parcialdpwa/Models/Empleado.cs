@@ -7,6 +7,8 @@ using System.Web;
 
 namespace parcialdpwa.Models
 {
+    public class SelledDisk { public int ID; public String Titulo; }
+
     public class Empleado
     {
         public int ID { get; set; }
@@ -32,5 +34,7 @@ namespace parcialdpwa.Models
         [DisplayName("Contraseña")]
         public string clave { get; set; }
         public virtual ICollection<Pedido> Pedidos { get; set; }
+
+        public List<SelledDisk> listSelledDisks { get; set; }
     }
 }
