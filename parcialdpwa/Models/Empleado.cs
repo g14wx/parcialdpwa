@@ -1,4 +1,5 @@
-﻿using System;
+﻿using parcialdpwa.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +8,7 @@ using System.Web;
 
 namespace parcialdpwa.Models
 {
-    public class SelledDisk { public int ID; public String Titulo; }
+    
 
     public class Empleado
     {

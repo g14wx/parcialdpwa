@@ -51,6 +51,17 @@
         </dd>
 
     </dl>
+    
+    @foreach (var item in Model.listSelledDisks)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            
+        </tr>
+    }
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |

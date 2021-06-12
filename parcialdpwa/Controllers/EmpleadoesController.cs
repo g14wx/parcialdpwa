@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using parcialdpwa.DAL;
+using parcialdpwa.Entities;
 using parcialdpwa.Models;
 
 namespace parcialdpwa.Controllers
