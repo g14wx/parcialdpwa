@@ -4,6 +4,15 @@
     ViewBag.Title = "Details";
 }
 
+<script>
+    $(document).ready(function(){
+        $("#filterButton").click(function(event){
+           event.preventDefault();
+            window.location.href = "@Url.Action("probandop", "Details")" + "?startDate=" + $("#startDate").val() + "&endDate=" + $("#endDate").val();
+        });
+})
+</script>
+
 <h2>Details</h2>
 
 <div>
@@ -51,17 +60,35 @@
         </dd>
 
     </dl>
-    
-    @foreach (var item in Model.listSelledDisks)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            
-        </tr>
-    }
 
+    <h1>Discos vendidos por el empleado</h1>
+
+
+    <label>
+        Fechan inicio:
+        <input type="date" name="startDate" value="" />
+    </label>
+
+    <label>
+        Fechan fin:
+        <input type="date" name="endDate" value="" />
+    </label>
+
+    <button id="filterButton">filtart</button>
+
+    <table class="table table-hover table-bordered table-responsive">
+
+        @foreach (var item in Model.listSelledDisks)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+
+            </tr>
+        }
+
+    </table>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
